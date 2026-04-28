@@ -1,6 +1,8 @@
 import random
 import streamlit as st
 
+from ai_utils import get_ai_strategy, get_gemini_debug_info
+
 def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
         return 1, 20
@@ -88,6 +90,11 @@ low, high = get_range_for_difficulty(difficulty)
 
 st.sidebar.caption(f"Range: {low} to {high}")
 st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
+ai_enabled = st.sidebar.checkbox("Enable AI Coach", value=True)
+if ai_enabled:
+    st.sidebar.caption("AI Coach: Enabled")
+else:
+    st.sidebar.caption("AI Coach: Disabled")
 
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
@@ -117,6 +124,11 @@ with st.expander("Developer Debug Info"):
     st.write("Score:", st.session_state.score)
     st.write("Difficulty:", difficulty)
     st.write("History:", st.session_state.history)
+    gemini_debug = get_gemini_debug_info()
+    st.write("Gemini SDK:", gemini_debug["gemini_sdk"])
+    st.write("Gemini API key loaded:", gemini_debug["gemini_key_loaded"])
+    st.write("Gemini API key mask:", gemini_debug["gemini_key_masked"])
+    st.write("Gemini model:", gemini_debug["gemini_model"])
 
 raw_guess = st.text_input(
     "Enter your guess:",
@@ -131,6 +143,21 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
+if ai_enabled and st.session_state.status == "playing":
+    ai_feedback = get_ai_strategy(
+        difficulty=difficulty,
+        low=low,
+        high=high,
+        attempt_limit=attempt_limit,
+        attempts=st.session_state.attempts,
+        history=st.session_state.history,
+        status=st.session_state.status,
+    )
+elif not ai_enabled:
+    ai_feedback = "AI Coach is disabled. Enable it from the sidebar to get strategy guidance."
+else:
+    ai_feedback = "Game ended. Start a new game to receive AI coaching."
+
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)
@@ -143,6 +170,9 @@ if st.session_state.status != "playing":
     else:
         st.error("Game over. Start a new game to try again.")
     st.stop()
+
+with st.expander("AI Coach"):
+    st.write(ai_feedback)
 
 if submit:
     st.session_state.attempts += 1

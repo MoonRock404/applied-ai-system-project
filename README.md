@@ -1,38 +1,49 @@
-# 🎮 Game Glitch Investigator: The Impossible Guesser
+## README
 
-## 🚨 The Situation
+1. Project Title
+   - Short descriptive title
+   - One-sentence tagline
 
-You asked an AI to build a simple "Number Guessing Game" using Streamlit.
-It wrote the code, ran away, and now the game is unplayable. 
+2. Original Project Summary
+   - Name of original project
+   - 2-3 sentence summary of original goals and capabilities
 
-- You can't win.
-- The hints lie to you.
-- The secret number seems to have commitment issues.
+3. What It Does
+   - High-level explanation of current app
+   - Why it matters / what problem it solves
 
-## 🛠️ Setup
+4. Architecture Overview
+   - Main components
+   - Data flow summary
+   - How AI coaching fits into the system
 
-1. Install dependencies: `pip install -r requirements.txt`
-2. Run the broken app: `python -m streamlit run app.py`
+5. Setup Instructions
+   - Prerequisites
+   - Install dependencies
+   - Set environment variables
+   - Run the app
 
-## 🕵️‍♂️ Your Mission
+6. Sample Interactions
+   - Example 1: user guess and AI coach response
+   - Example 2: different difficulty or feedback case
+   - Example 3: AI disabled or game-over behavior
 
-1. **Play the game.** Open the "Developer Debug Info" tab in the app to see the secret number. Try to win.
-2. **Find the State Bug.** Why does the secret number change every time you click "Submit"? Ask ChatGPT: *"How do I keep a variable from resetting in Streamlit when I click a button?"*
-3. **Fix the Logic.** The hints ("Higher/Lower") are wrong. Fix them.
-4. **Refactor & Test.** - Move the logic into `logic_utils.py`.
-   - Run `pytest` in your terminal.
-   - Keep fixing until all tests pass!
+7. Design Decisions
+   - Why this architecture was chosen
+   - Trade-offs made
+   - Why AI coaching was integrated in this way
 
-## 📝 Document Your Experience
+8. Testing Summary
+   - What was tested
+   - What passed
+   - Any known limitations or edge cases
 
-- [X] Describe the game's purpose.
-- [X] Detail which bugs you found.
-- [X] Explain what fixes you applied.
+9. Reflection
+   - What you learned about AI and problem-solving
+   - How this project demonstrates your skills
+   - What you would improve next
 
-## 📸 Demo
-
-- [![alt text](https://file%2B.vscode-resource.vscode-cdn.net/var/folders/wq/_08fpqds6_3_sjw2yndvs_6w0000gn/T/TemporaryItems/NSIRD_screencaptureui_oT0XED/Screenshot%202026-03-14%20at%2010.40.11%E2%80%AFPM.png?version%3D1773553217961) ] [Insert a screenshot of your fixed, winning game here]
-
-## 🚀 Stretch Features
-
-- [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+10. Optional Extras
+   - Notes on environment variables
+   - How to extend the app
+   - Links to related files (app.py, ai_utils.py, logic_utils.py, system_diagram.mmd)

@@ -1,0 +1,32 @@
+flowchart LR
+  subgraph User and Inputs
+    user[User] --> ui[Streamlit UI]
+    ui --> input[Guess + Difficulty + AI toggle]
+  end
+
+  subgraph Application Logic
+    app[app.py] --> logic[Game logic (logic_utils.py)]
+    app -->|if AI enabled| ai[A.I. Coach (ai_utils.py)]
+    ai --> openai[OpenAI API]
+    logic --> outcome[Outcome + Hint + Score]
+  end
+
+  subgraph Output
+    outcome --> ui[Streamlit UI]
+    ai --> ui
+    ui --> debug[Developer debug info]
+  end
+
+  subgraph Validation
+    tests[Automated tests]
+    manual[Human review / Setup]
+    tests --> logic
+    tests --> ai
+    manual --> ui
+    manual --> tests
+  end
+
+  input --> app
+  app --> outcome
+  openai --> ai
+  ui --> manual
