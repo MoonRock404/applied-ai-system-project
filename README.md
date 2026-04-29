@@ -35,8 +35,8 @@
      end
 
      subgraph Application Logic
-       app[app.py] --> logic[Game logic (logic_utils.py)]
-       app -->|if AI enabled| ai[A.I. Coach (ai_utils.py)]
+       app["app.py"] --> logic["Game logic - logic_utils.py"]
+       app -->|if AI enabled| ai["A.I. Coach - ai_utils.py"]
        ai --> gemini[Gemini API]
        logic --> outcome[Outcome + Hint + Score]
      end
