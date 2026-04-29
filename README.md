@@ -25,7 +25,42 @@
    - Data flow summary
    - How AI coaching fits into the system
 
-   There are three components: app.py which is the full UI layer, logic_utils.py which stores the logic of the game, and ai_utils.py which is the layer I added now. For the data, the first step is all the front end where the user types a guess, selects a difficulty, and determines wheter they want to use the AI layer or not. Next app.py looks at the input and send it to the logic in logic_utils.py which then determines if the guess was correct or determines a hint and updates the score. Then that information is sent back to the game which is displayed to the user. 
+   There are three components: app.py which is the full UI layer, logic_utils.py which stores the logic of the game, and ai_utils.py which is the layer I added now. For the data, the first step is all the front end where the user types a guess, selects a difficulty, and determines wheter they want to use the AI layer or not. Next app.py looks at the input and send it to the logic in logic_utils.py which then determines if the guess was correct or determines a hint and updates the score. Then that information is sent back to the game which is displayed to the user.
+
+   ```mermaid
+   flowchart LR
+     subgraph User and Inputs
+       user[User] --> ui[Streamlit UI]
+       ui --> input[Guess + Difficulty + AI toggle]
+     end
+
+     subgraph Application Logic
+       app[app.py] --> logic[Game logic (logic_utils.py)]
+       app -->|if AI enabled| ai[A.I. Coach (ai_utils.py)]
+       ai --> gemini[Gemini API]
+       logic --> outcome[Outcome + Hint + Score]
+     end
+
+     subgraph Output
+       outcome --> ui[Streamlit UI]
+       ai --> ui
+       ui --> debug[Developer debug info]
+     end
+
+     subgraph Validation
+       tests[Automated tests]
+       manual[Human review / Setup]
+       tests --> logic
+       tests --> ai
+       manual --> ui
+       manual --> tests
+     end
+
+     input --> app
+     app --> outcome
+     gemini --> ai
+     ui --> manual
+   ```
 
 5. Setup Instructions
    - Prerequisites
